@@ -12,14 +12,17 @@
 			var time = 0;
 			var running = 0;
 
+
 			function startPause() {
 				if (running == 0) {
 					running = 1;
 					increment();
 					document.getElementById('startPause').innerHTML = "Pause";
+					document.getElementById("reset").disabled = true;
 				} else {
 					running = 0;
 					document.getElementById('startPause').innerHTML = "Resume";
+					document.getElementById("reset").disabled = false;
 				}
 			}
 
@@ -27,6 +30,7 @@
 				running = 0;
 				time = 0;
 				document.getElementById('startPause').innerHTML = "Start";
+				document.getElementById("output").innerHTML = "00:00:00";
 			}
 
 			function increment() {
@@ -36,19 +40,25 @@
 						var mins = Math.floor(time / 10 / 60);
 						var secs = Math.floor(time / 10);
 						var tenths = time % 10;
+						if(mins < 10) {
+							mins = "0" + mins;
+						}
+						if(secs < 10) {
+							secs = "0" + secs;
+						}
 						document.getElementById('output').innerHTML = mins + ":" +  secs + ":" + tenths;
 						increment();
-					}, 100)
+					}, 100);
 				}
 			}
 		</script>
 
 	</head>
-	<body>
+	<body onload = "reset()">
 		<p id="output"></p>
 		<div id="controls">
 			<button id="startPause" onclick="startPause()">Start</button>
-			<button onclick="reset()">Reset</button>
+			<button id="reset" onclick="reset()">Reset</button>
 		</div>
 
 	</body>
