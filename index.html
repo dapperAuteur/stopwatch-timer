@@ -1,64 +1,104 @@
 <html>
 	<head>
 		<style>
+		/*adds style to the page*/
 			#output{
+				/*adds style to the element with id = #output*/
 				width: 120px;
+				/*sets width of element to 120px*/
 				height: 25px;
-				background-color: #CCC;
-				border: 5px solid #666;
+				/*sets height of element to 25px*/
+				background-color: #FFB310;
+				/*sets background color of element to Sun Devil Gold*/
+				border: 5px solid #990033;
+				/*sets background color of element to Sun Devil Maroon*/
 			}
 		</style>
+		<!-- closing style tag -->
 		<script>
+		// opening script tag that adds JavaScript to page
 			var time = 0;
+			// declare variable, name it time, set it to 0
 			var running = 0;
-
-
+			// declare variable, name it running, set it to 0
 			function startPause() {
+				// declare function, name it startPause
 				if (running == 0) {
+					// start if statement, when running EQUALS 0 execute the following code
 					running = 1;
+					// set running to 1
 					increment();
+					// call increment() function
 					document.getElementById('startPause').innerHTML = "Pause";
+					// find document element with id 'startPause' and change it to "Pause" 
 					document.getElementById("reset").disabled = true;
-				} else {
+					// find document element with id 'reset' and disable the button
+				} else { // if running is NOT EQUAL TO 0 execute the following code
 					running = 0;
+					// set running to 0
 					document.getElementById('startPause').innerHTML = "Resume";
+					// find document element with id 'startPause' and change it to "Resume"
 					document.getElementById("reset").disabled = false;
+					// find document element with id 'reset' and enable the button
 				}
 			}
 
 			function reset() {
+				// declare function, name it reset()
 				running = 0;
+				// set running to 0
 				time = 0;
+				// set time to 0
 				document.getElementById('startPause').innerHTML = "Start";
+				// find document element with id 'startPause' and change it to "Start"
 				document.getElementById("output").innerHTML = "00:00:00";
+				// find document element with id 'output' and change it to "00:00:00"
 			}
 
 			function increment() {
+				// declare function, name it increment()
 				if(running == 1) {
+					// start if statement, when running EQUALS 1 execute the following code
 					setTimeout(function() {
+						// call setTimeout(function())
 						time++;
+						// increment time by 1
 						var mins = Math.floor(time / 10 / 60);
+						// declare variable, name it mins, set it to ('time' divided by 10, then divided by 60, then round down to the nearest whole number)
 						var secs = Math.floor(time / 10);
+						// declare variable, name it secs, set it to ('time' divided by 10, then round down to the nearest whole number)
 						var tenths = time % 10;
-						if(mins < 10) {
+						// declare variable, name it tenths, set it to the remainder of 'time' divided by 10
+						if(mins < 10) {// start if statement, if 'mins' is LESS THAN 10, execute the following code
 							mins = "0" + mins;
+						// concantanate "0" to 'mins' and set it to 'mins'
 						}
-						if(secs < 10) {
+						if(secs < 10) {// start if statement, if 'secs' is LESS THAN 10, execute the following code
 							secs = "0" + secs;
+						// concantanate "0" to 'secs' and set it to 'secs'
 						}
 						document.getElementById('output').innerHTML = mins + ":" +  secs + ":" + tenths;
+						// find element with id 'output' and change it's value to 'mins' concantanate to ':' concantanate to 'secs' concantanate to ":" concantanate to 'tenths'
 						increment();
+						// call the increment() function
 					}, 100);
+					// execute the setTimeout() function every 100 ms, therefore every tenth of a second
 				}
 			}
 		</script>
+		<!-- close script tag -->
 
 	</head>
 	<body onload = "reset()">
+	<!-- when page loads call reset() function -->
 		<p id="output"></p>
+		<!-- create paragraph tag and give it the id 'output' -->
 		<div id="controls">
+		<!-- create div tag and give it the id 'controls' -->
 			<button id="startPause" onclick="startPause()">Start</button>
+			<!-- create button tag and give it the id 'startPause', call 'startPause()' function when button is clicked -->
 			<button id="reset" onclick="reset()">Reset</button>
+			<!-- create button tag and give it the id 'reset', call 'reset()' function when button is clicked -->
 		</div>
 
 	</body>
